@@ -1,0 +1,30 @@
+
+{
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Sid": "VisualEditor0",
+			"Effect": "Allow",
+			"Action": "s3:ListAllMyBuckets",
+			"Resource": "*"
+		},
+		{
+			"Sid": "VisualEditor1",
+			"Effect": "Allow",
+			"Action": "s3:ListBucket",
+			"Resource": "arn:aws:s3:::${aws:PrincipalTag/allowed_bucket}"
+		},
+		{
+			"Sid": "VisualEditor2",
+			"Effect": "Allow",
+			"Action": [
+				"s3:PutObject",
+				"s3:GetObject"
+			],
+			"Resource": [
+				"arn:aws:s3:::${aws:PrincipalTag/allowed_bucket}/${aws:username}",
+				"arn:aws:s3:::${aws:PrincipalTag/allowed_bucket}/${aws:username}/*"
+			]
+		}
+	]
+}
