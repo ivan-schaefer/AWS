@@ -1,0 +1,11 @@
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+
+aws configure --profile clitest
+
+export AWS_PROFILE=clitest
+
+aws configure set
+aws sts get-caller-identity
+aws iam list-users
