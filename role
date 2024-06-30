@@ -1,0 +1,19 @@
+~/.aws/config
+[default]
+region = us-east-1
+output = json
+
+[profile_01]
+region = us-east-1
+output = json
+
+~/.aws/credentials
+[default]
+aws_access_key_id = 
+aws_secret_access_key = 
+
+[profile_01]
+role_arn=arn:aws:iam::ID:role/iam-role-01
+source_profile=default
+
+aws sts get-caller-identity --profile profile_01
