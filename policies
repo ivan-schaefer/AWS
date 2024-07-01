@@ -7,6 +7,22 @@ aws iam update-account-password-policy --minimum-password-length 24
 #DELETE POLICE
 aws iam delete-account-password-policy
 
+#CREATE POLICY FROM FILE
+aws iam create-policy \
+  --policy-name IAM_read_only_CLI \
+  --policy-document file://ПУТЬ_К_ФАЙЛУ/_iam_read_only.json
+
+#ATTACH TO USER
+aws iam attach-user-policy \
+  --user-name ИМЯ_IAM_ПОЛЬЗОВАТЕЛЯ \
+  --policy-arn ARN_IAM_ПОЛИТИКИ
+
+#DETACH FROM USER
+aws iam detach-user-policy \
+  --user-name ИМЯ_IAM_ПОЛЬЗОВАТЕЛЯ \
+  --policy-arn ARN_IAM_ПОЛИТИКИ
+
+
 #S3 POLICY FORM USERNAME
 {
 	"Version": "2012-10-17",
