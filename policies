@@ -1,4 +1,13 @@
+#CHECK POLICY
+aws iam get-account-password-policy
 
+#CHANGE POLICY
+aws iam update-account-password-policy --minimum-password-length 24
+
+#DELETE POLICE
+aws iam delete-account-password-policy
+
+#S3 POLICY FORM USERNAME
 {
 	"Version": "2012-10-17",
 	"Statement": [
