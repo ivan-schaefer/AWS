@@ -1,0 +1,6 @@
+DOWNLOAD
+aws s3 cp s3://MY_BUCKET_NAME/MY_FILE.doc /data/my_file.doc
+UPLOAD
+aws s3 cp /data/my_file.doc s3://MY_BUCKET_NAME/MY_FILE.doc
+DOWNLOAD ALL
+aws s3 sync s3://MY_BUCKET /data

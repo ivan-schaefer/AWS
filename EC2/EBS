@@ -1,0 +1,37 @@
+aws ec2 create-volume \
+    --size 100 \
+    --availability-zone us-east-1a
+
+#ENCRYPTED
+aws ec2 create-volume \
+    --size 100 \
+    --encrypted \
+    --availability-zone us-east-1a
+
+#WITHTAGS
+aws ec2 create-volume \
+    --availability-zone us-east-1a \
+    --volume-type gp2 \
+    --size 100 \
+    --tag-specifications 'ResourceType=volume,Tags=[{Key=Environment,Value=staging},{Key=cost-center,Value=cc123}]'
+
+#LIST
+aws ec2 describe-volumes \
+    --filters Name=status,Values=available Name=availability-zone,Values=us-east-1a
+
+#LIST_TAG
+aws ec2 describe-volumes \
+    -- region us-east-1 \
+    --filters Name=tag:Environment,Values=staging* \
+    --query "Volumes[*].{ID:VolumeId,Tag:Tags}"
+
+#CHANGE VOLUME
+aws ec2 modify-volume \
+    --size 150 \
+    --region us-east-1 \
+    --volume-id vol-xxxxxxxxxxxxx
+
+
+#DELETE VOLUME
+aws ec2 delete-volume \
+    --volume-id vol-xxxxxxxxxxxxxxxxx
