@@ -1,0 +1,23 @@
+#CREATE
+aws iam create-user --user-name ИМЯ_ПОЛЬЗОВАТЕЛЯ
+
+#PASS
+aws iam create-login-profile --user-name ИМЯ_ПОЛЬЗОВАТЕЛЯ --password ПАРОЛЬ_ОТ_ВЕБ_КОНСОЛИ
+
+#KEYS
+aws iam create-access-key --user-name ИМЯ_ПОЛЬЗОВАТЕЛЯ
+
+#BLOCK WEB
+aws iam delete-login-profile --user-name ИМЯ_ПОЛЬЗОВАТЕЛЯ
+
+#BLOCK API
+aws iam update-access-key --user-name ИМЯ_ПОЛЬЗОВАТЕЛЯ --access-key-id ID_КЛЮЧА_ДОСТУПА --status Inactive
+
+#DELETE
+aws iam delete-user --user-name ИМЯ_ПОЛЬЗОВАТЕЛЯ
+
+#CHANGE PASSWORD WEB
+aws iam update-login-profile --user-name ИМЯ_ПОЛЬЗОВАТЕЛЯ --password НОВЫЙ_ПАРОЛЬ
+
+#LASTTIME VISIT
+aws iam get-user --user-name ИМЯ_ПОЛЬЗОВАТЕЛЯ
