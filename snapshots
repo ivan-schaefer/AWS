@@ -1,0 +1,52 @@
+#LIST
+aws ec2 describe-snapshots \
+    --owner-ids self  \
+    --query 'Snapshots[]' \
+    --region=us-east-1
+
+#LIST WIT TAG
+aws ec2 describe-snapshots  \
+    --region us-east-1 \
+    --owner-ids self  \
+    --query 'Snapshots[?(Tags[?Key == `Name`].Value)]'
+    
+#LIST WEEK
+aws ec2 describe-snapshots \
+    --owner-ids self \
+    --region us-east-1 \
+    --query 'Snapshots[?StartTime>`'$(date --date='-1 week' '+%Y-%m-%d')'`][Description,SnapshotId]'
+
+#LIST WEEK ALL REGIONS
+for REGION in $(aws ec2 describe-regions --output text --query 'Regions[].[RegionName]' --region us-east-1)
+do
+  echo $REGION 
+  aws ec2 describe-snapshots \
+        --owner self \
+        --region $REGION \
+        --query 'Snapshots[?StartTime>`'$(date --date='-1 week' '+%Y-%m-%d')'`][Description,SnapshotId]'
+done
+
+#CREATE SNAPSHOT
+aws ec2 create-snapshot \
+    -- region us-east-1 \
+    --volume-id vol-12345678xxxxxxxx \
+    --description 'Production set' \
+    --tag-specifications 'ResourceType=snapshot,Tags=[{Key=Environment,Value=production},{Key=ServerType,Value=WebServer}]'
+
+#VOLUME FROM SNAP
+aws ec2 create-volume \
+    --volume-type gp2 \
+    --size 10 \
+    --snapshot-id snap-123456789xxxxxxxx \
+    --availability-zone us-east-1a
+
+#AMI FORM SNAP
+aws ec2 register-image \
+    --name my-image \
+    --root-device-name /dev/xvda \
+    --block-device-mappings DeviceName=/dev/xvda,Ebs={SnapshotId=snap-123456789xxxxx} DeviceName=/dev/xvdc,Ebs={VolumeSize=100}
+
+#DELETE SNAP
+aws ec2 delete-snapshot \
+    --region us-east-1 \
+    --snapshot-id snap-123456789xxxxxxxx
