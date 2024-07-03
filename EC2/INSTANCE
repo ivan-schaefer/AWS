@@ -1,0 +1,2 @@
+aws ec2 run-instances --image-id $(aws ec2 describe-images --owners amazon --query 'Images[*].[ImageId]' \
+ --filters Name=name,Values=amzn2-ami-hvm-2.0.*-x86_64-gp2 --output text | head -n1) --instance-type t2.micro

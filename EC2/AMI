@@ -1,0 +1,17 @@
+#LIST AMI
+aws ec2 describe-images --owners self --query 'Images[*].[ImageId]' --region eu-central-1
+aws ec2 describe-images --region eu-west-1
+aws ec2 describe-images \
+   --region eu-west-1 \
+   --filters "Name=image-type,Values=machine" "Name=tag:Environment,Values=production"
+   --query 'Images[].ImageId'
+
+aws ec2 describe-images \
+   --region eu-west-1 \
+   --filters "Name=image-type,Values=machine" \
+             "Name=tag:Team,Values=core" \
+   --query 'Images[?CreationDate>`2021-06-01`].ImageId'
+
+#DELETE
+aws ec2 deregister-image --image-id ami-xxxxxxxxxxx
+

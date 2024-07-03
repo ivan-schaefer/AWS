@@ -1,0 +1,8 @@
+aws ec2 create-security-group --group-name "web-servers" --description "Group for web servers" --tag-specifications "ResourceType=security-group,Tags=[{Key=Name,Value='rebrain-tutorial'}]" --output text
+ sg-0084ce1c2a28672f5
+
+aws ec2 authorize-security-group-ingress --group-id sg-0084ce1c2a28672f5 --protocol tcp --port 80 --cidr 0.0.0.0/0 --output text
+aws ec2 authorize-security-group-ingress --group-id sg-0084ce1c2a28672f5 --protocol tcp --port 443 --cidr 0.0.0.0/0 --output text
+aws ec2 authorize-security-group-ingress --group-id sg-0084ce1c2a28672f5 --protocol tcp --port 22 --source-group sg-0f2aa232b9c8351a2 --output text
+
+
