@@ -1,0 +1,7 @@
+aws ec2 associate-address \
+    --instance-id i-0f0f937e73a5aeb9f \
+    --allocation-id eipalloc-06252ba13847cf4e7
+
+aws ec2 disassociate-address --association-id eipassoc-0be13c681f3a41be8
+
+aws ec2 release-address --allocation-id eipalloc-06252ba13847cf4e7
