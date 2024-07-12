@@ -1,0 +1,18 @@
+aws ec2 create-internet-gateway \
+    --region us-east-1
+
+aws ec2 attach-internet-gateway \
+    --vpc-id "vpc-123456789xxxxx" \
+    --internet-gateway-id "igw-0123456789xxxxxx" \
+    --region us-east-1
+
+aws ec2 detach-internet-gateway \
+    --region us-east-1 \
+    --internet-gateway-id igw-123456789xxxxx \
+    --vpc-id vpc-123456789xxxxx
+
+aws ec2 describe-internet-gateways --region us-east-1
+
+aws ec2 delete-internet-gateway \
+    --region us-east-1 \
+    --internet-gateway-id igw-123456789xxxx

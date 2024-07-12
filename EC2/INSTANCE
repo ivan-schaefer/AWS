@@ -1,2 +1,17 @@
 aws ec2 run-instances --image-id $(aws ec2 describe-images --owners amazon --query 'Images[*].[ImageId]' \
  --filters Name=name,Values=amzn2-ami-hvm-2.0.*-x86_64-gp2 --output text | head -n1) --instance-type t2.micro
+
+ aws ec2 run-instances \
+     --image-id \
+         $(aws ec2 describe-images \
+             --owners amazon \
+             --query 'Images[*].[ImageId]' \
+             --filters Name=name,Values=amzn2-ami-hvm-2.0.*-x86_64-gp2 \     # здесь мы фильтруем по имени AMI
+             --output text | head -n1) \                                     # и выбираем только первое значение
+ --instance-type t2.micro \
+ --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=rebrain-6.1}]" \
+ --query "Instances[*].InstanceId"
+
+
+ aws ec2 describe-instances \
+     --query "Reservations[*].Instances[*].{Instance:InstanceId,name:Tags[0].Value}"

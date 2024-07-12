@@ -1,0 +1,4 @@
+./easyrsa init-pki
+./easyrsa build-ca nopass
+./easyrsa build-server-full server.domain.tld nopass
+./easyrsa build-client-full client1.domain.tld nopass

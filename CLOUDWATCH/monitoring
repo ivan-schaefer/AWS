@@ -1,0 +1,15 @@
+sudo yum update
+sudo yum install nginx -y
+sudo systemctl start nginx
+sudo systemctl enable nginx
+sudo yum install amazon-cloudwatch-agent -y
+aws configure
+sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-config-wizard
+
+/var/log/nginx/access.log
+for i in {1..50}; do curl http://localhost; sleep 1; done
+
+
+sudo cp /opt/aws/amazon-cloudwatch-agent/bin/config.json /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
+sudo service amazon-cloudwatch-agent start
+sudo systemctl enable amazon-cloudwatch-agent

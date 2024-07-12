@@ -1,0 +1,10 @@
+aws ec2 create-nat-gateway \
+    --region us-east-1 \
+    --subnet-id subnet-12345678 \
+    --allocation-id eipalloc-1234567
+
+aws ec2 describe-nat-gateways --region us-east-1
+
+aws ec2 delete-nat-gateway \
+    --region us-east-1 \
+    --nat-gateway-id nat-0123456789xxxx
