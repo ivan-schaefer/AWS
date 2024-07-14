@@ -1,3 +1,5 @@
+aws ec2 create-default-vpc
+
 aws ec2 create-vpc --cidr-block 10.0.0.0/16 --region <REGION>
 
 aws ec2 describe-vpcs

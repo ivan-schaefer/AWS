@@ -1,17 +1,35 @@
 aws ec2 run-instances --image-id $(aws ec2 describe-images --owners amazon --query 'Images[*].[ImageId]' \
  --filters Name=name,Values=amzn2-ami-hvm-2.0.*-x86_64-gp2 --output text | head -n1) --instance-type t2.micro
 
- aws ec2 run-instances \
+aws ec2 run-instances \
      --image-id \
          $(aws ec2 describe-images \
              --owners amazon \
              --query 'Images[*].[ImageId]' \
-             --filters Name=name,Values=amzn2-ami-hvm-2.0.*-x86_64-gp2 \     # здесь мы фильтруем по имени AMI
-             --output text | head -n1) \                                     # и выбираем только первое значение
- --instance-type t2.micro \
- --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=rebrain-6.1}]" \
- --query "Instances[*].InstanceId"
+             --filters Name=name,Values=amzn2-ami-hvm-2.0.*-x86_64-gp2 \
+             --output text | head -n1) \
+--instance-type t2.micro \
+--tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=rebrain-6.1}]" \
+--query "Instances[*].InstanceId"
 
 
- aws ec2 describe-instances \
+aws ec2 describe-instances \
      --query "Reservations[*].Instances[*].{Instance:InstanceId,name:Tags[0].Value}"
+
+
+aws ec2 terminate-instances \
+    --region us-east-1 \
+    --instance-ids i-09812f18c157b4888
+
+
+aws ec2 terminate-instances \
+    --region us-east-1 \
+    --instance-ids i-09812f18c157b4888 i-02c3c304ff0e2075e
+
+
+aws ec2 describe-instances \
+    --region us-east-1 \
+    --filters "Name=tag:Name,Values=rebrain-6.1" \
+    --query 'Reservations[*].Instances[*].InstanceId' \
+    --output text | xargs -n 1 aws ec2 terminate-instances --instance-ids
+
