@@ -1,0 +1,11 @@
+aws ec2 create-placement-group \
+         --group-name my-cluster \
+         --strategy cluster \
+         --tag-specifications 'ResourceType=placement-group,Tags={Key=purpose,Value=production}'
+aws ec2 create-placement-group \
+         --group-name HDFS-Group-A \
+         --strategy partition \
+         --partition-count 5
+aws ec2 modify-instance-placement \
+           --instance-id i-0123a456700123456 \
+           --group-name MySpreadGroup
