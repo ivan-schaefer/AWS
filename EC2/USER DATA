@@ -1,0 +1,27 @@
+aws ec2 run-instances --image-id ami-abcd1234 --count 1 --instance-type m3.medium \
+--key-name my-key-pair --subnet-id subnet-abcd1234 --security-group-ids sg-abcd1234 \
+--user-data user data
+
+
+#cloud-config
+hostname: ec2_user-data
+package_update: true
+packages:
+  - nginx
+runcmd:
+  - systemctl enable --now nginx
+  - systemctl start --now nginx
+write_files:
+- path: /var/www/html/index.html
+  owner: www-data:www-data
+  permissions: '0644'
+  content: |
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <title>Cloud-init example</title>
+        </head>
+        <body>
+            <p>rebrain-init</p>
+        </body>
+    </html>
