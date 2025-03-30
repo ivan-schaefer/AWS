@@ -8,4 +8,4 @@ export AWS_PROFILE=clitest
 
 aws configure set
 aws sts get-caller-identity
-aws iam list-users
+
